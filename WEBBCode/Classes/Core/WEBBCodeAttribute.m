@@ -6,8 +6,8 @@
 //
 //
 
-#import "WEBBCodeAttribute.h"
-#import "WEBBCodeTag.h"
+#import <WEBBCode/WEBBCodeAttribute.h>
+#import <WEBBCode/WEBBCodeTag.h>
 
 @implementation WEBBCodeAttribute
 
