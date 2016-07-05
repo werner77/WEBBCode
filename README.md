@@ -22,7 +22,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Example usage to parse:
 
-[code]
+```objc
 
 WEBBCodeParser *parser = [WEBBCodeParser new];
 parser.encoding = NSUTF8StringEncoding;
@@ -31,11 +31,11 @@ parser.delegate = self;
 NSData *data = [NSData dataWithContentsOfFile:@"somefile"];
 [parser parseData:data error:nil];
 
-[/code]
+```
 
 Example to convert BBCode to HTML:
 
-[code]
+```objc
 
 WEBBCodeToHtmlConverter *converter = [WEBBCodeToHtmlConverter new];
 converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
@@ -49,7 +49,7 @@ if (output == nil) {
     NSLog(@"Error occurred: %@", error);
 }
 
-[/code]
+```
 
 Also see the test cases for more code examples.
 
