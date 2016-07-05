@@ -51,6 +51,7 @@ if (output == nil) {
 
 [/code]
 
+Also see the test cases for more code examples.
 
 ## Requirements
 
