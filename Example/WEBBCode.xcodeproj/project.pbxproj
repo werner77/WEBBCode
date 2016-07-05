@@ -20,7 +20,12 @@
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		740532201D2BE14B00B5F42C /* bbcode-input1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7405321A1D2BE14B00B5F42C /* bbcode-input1.txt */; };
+		740532211D2BE14B00B5F42C /* bbcode-output1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7405321B1D2BE14B00B5F42C /* bbcode-output1.txt */; };
+		740532221D2BE14B00B5F42C /* WEBBCodeParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7405321C1D2BE14B00B5F42C /* WEBBCodeParserTest.m */; };
+		740532231D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7405321D1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */; };
+		740532241D2BE14B00B5F42C /* WEBBCodeParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7405321E1D2BE14B00B5F42C /* WEBBCodeParserTest.m */; };
+		740532251D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7405321F1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		9D9675A1701AE212D63DD6B7 /* Pods_WEBBCode_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AFA085B4C0B33F382E82658 /* Pods_WEBBCode_Example.framework */; };
 /* End PBXBuildFile section */
@@ -58,9 +63,14 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		64012A15DD5A1AAC7DA079C2 /* Pods_WEBBCode_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WEBBCode_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7405321A1D2BE14B00B5F42C /* bbcode-input1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bbcode-input1.txt"; sourceTree = "<group>"; };
+		7405321B1D2BE14B00B5F42C /* bbcode-output1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bbcode-output1.txt"; sourceTree = "<group>"; };
+		7405321C1D2BE14B00B5F42C /* WEBBCodeParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBBCodeParserTest.m; sourceTree = "<group>"; };
+		7405321D1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBBCodeToHtmlConverterTest.m; sourceTree = "<group>"; };
+		7405321E1D2BE14B00B5F42C /* WEBBCodeParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBBCodeParserTest.m; sourceTree = "<group>"; };
+		7405321F1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBBCodeToHtmlConverterTest.m; sourceTree = "<group>"; };
 		7840354763DFB77DFB76C8E6 /* Pods-WEBBCode_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEBBCode_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEBBCode_Example/Pods-WEBBCode_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		94B303BABDBA49BEFD6605A9 /* Pods-WEBBCode_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEBBCode_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEBBCode_Example/Pods-WEBBCode_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,8 +166,10 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
+				740532191D2BE14B00B5F42C /* Resources */,
+				7405321E1D2BE14B00B5F42C /* WEBBCodeParserTest.m */,
+				7405321F1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -180,6 +192,17 @@
 				0888F7C7B635329B6F70D6DB /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		740532191D2BE14B00B5F42C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7405321A1D2BE14B00B5F42C /* bbcode-input1.txt */,
+				7405321B1D2BE14B00B5F42C /* bbcode-output1.txt */,
+				7405321C1D2BE14B00B5F42C /* WEBBCodeParserTest.m */,
+				7405321D1D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E891EF9F11422BA55170318D /* Pods */ = {
@@ -286,6 +309,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				740532201D2BE14B00B5F42C /* bbcode-input1.txt in Resources */,
+				740532211D2BE14B00B5F42C /* bbcode-output1.txt in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +425,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				740532221D2BE14B00B5F42C /* WEBBCodeParserTest.m in Sources */,
+				740532231D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m in Sources */,
+				740532241D2BE14B00B5F42C /* WEBBCodeParserTest.m in Sources */,
+				740532251D2BE14B00B5F42C /* WEBBCodeToHtmlConverterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
