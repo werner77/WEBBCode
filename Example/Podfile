@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'WEBBCode_Example' do
+  pod 'WEBBCode', :path => '../'
+
+  target 'WEBBCode_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
