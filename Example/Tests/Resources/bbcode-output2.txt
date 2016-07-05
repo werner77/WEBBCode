@@ -1,0 +1,28 @@
+Bold: <strong>{text}</strong><br />
+Italic: <em>{text}</em><br />
+Underline: <ins>{text}</ins><br />
+Line-through: <del>{text}</del><br />
+Font-size: <span style="font-size:100px;">{text}</span><br />
+Font colour: <span style="color:#000000;">{text}</span><br />
+Center text: <center>{text}</center><br />
+Left text: <left>{text}</left><br />
+Right text: <right>{text}</right><br />
+Justify text: <justify>{text}</justify><br />
+Quote: <blockquote><p>{text}</p></blockquote><br />
+Link: <a href="http://somedomain">{url}</a><br />
+Link (named): <a href="http://domain.com">{text}</a><br />
+Image: <img source="http://domain.com"></img><br />
+Image (resized): <img source="http://domain.com"></img><br />
+Image variant (shorthand): <img source="http://domain.com"></img><br />
+Unordered list: <ul>{items}</ul><br />
+Ordered list: <ol>{items}</ol><br />
+Another variant: <ul>{items}</ul><br />
+List item: <li>{text}</li>
+Shorthand: <li>{text}</li>
+Code: <pre>{text}</pre><br />
+Tables: <table>{rows}</table><br />
+Table rows: <tr>{cells}</tr><br />
+Table content cells	Heading cell: <th>{content}</th><br />
+Content cell: <td>{content}</td><br />
+Style1: <span style="font-size: 15px;">Large Text</span><br />
+Style2: <span style="color: #FF0000;">Red Text</span><br />
