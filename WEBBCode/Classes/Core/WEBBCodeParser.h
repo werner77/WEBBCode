@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, WEBBCodeParserStatus) {
 - (void)reset;
 
 - (WEBBCodeParserStatus)parseData:(NSData *)data error:(NSError **)error;
-- (WEBBCodeParserStatus)parseBytes:(void*)bytes withLength:(NSUInteger)bytesLength error:(NSError **)error;
+- (WEBBCodeParserStatus)parseBytes:(const void*)bytes withLength:(NSUInteger)bytesLength error:(NSError **)error;
 - (WEBBCodeParserStatus)parseString:(NSString *)inputString error:(NSError **)error;
 
 @end

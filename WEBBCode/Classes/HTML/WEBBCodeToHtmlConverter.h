@@ -11,9 +11,11 @@
 
 @property (nonatomic, strong) id <WEBBCodeToHtmlTagTransformer>transformer;
 
+@property (nonatomic, assign) BOOL useParagraphs;
+
 /**
  * Constructs an HTML string from the supplied BBCodeString.
  */
-- (NSString *)htmlFromBBCode:(NSString *)bbCode;
+- (NSString *)htmlFromBBCode:(NSString *)bbCode error:(NSError **)error;
 
 @end

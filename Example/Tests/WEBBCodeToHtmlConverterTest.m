@@ -28,10 +28,11 @@
 
     WEBBCodeToHtmlConverter *converter = [WEBBCodeToHtmlConverter new];
     converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
+    converter.useParagraphs = NO;
 
     NSString *input = [self readFromFile:@"bbcode-input1"];
 
-    NSString *output = [converter htmlFromBBCode:input];
+    NSString *output = [converter htmlFromBBCode:input error:nil];
 
     NSLog(@"output: %@", output);
 

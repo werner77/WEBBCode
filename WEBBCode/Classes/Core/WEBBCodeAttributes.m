@@ -13,7 +13,7 @@
 }
 
 + (instancetype)attributesWithAttributesArray:(NSArray <WEBBCodeAttribute *> *)attributes {
-    return [[self class] initWithAttributes:attributes];
+    return [[self alloc] initWithAttributes:attributes];
 }
 
 - (instancetype)initWithAttributes:(NSArray <WEBBCodeAttribute *> *)attributes {

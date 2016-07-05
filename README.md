@@ -5,6 +5,12 @@
 [![License](https://img.shields.io/cocoapods/l/WEBBCode.svg?style=flat)](http://cocoapods.org/pods/WEBBCode)
 [![Platform](https://img.shields.io/cocoapods/p/WEBBCode.svg?style=flat)](http://cocoapods.org/pods/WEBBCode)
 
+This is a lean and mean SAX style parser for BBCode written in Objective C/C.
+
+It has support for output to HTML and NSAttributedString (work in progress) for simple BBCode.
+
+It is totally pluggable and extensible to allow for full customization.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

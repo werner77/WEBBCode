@@ -5,6 +5,7 @@
 
 #import <XCTest/XCTest.h>
 #import <WEBBCode/WEBBCodeParser.h>
+#import <WEBBCode/WEBBCodeTag.h>
 
 @interface WEBBCodeParserTest : XCTestCase<WEBBCodeParserDelegate>
 
@@ -49,7 +50,7 @@
         }
 
         NSString *s = [[NSString alloc] initWithCharacters:buffer length:bufferPos];
-        [parser parseData:[s dataUsingEncoding:NSUTF8StringEncoding]];
+        [parser parseData:[s dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     }
 
     free(buffer);
@@ -75,10 +76,18 @@
     [self parseInputFile:@"bbcode-input1" withExpectedOutputFile:@"bbcode-output1"];
 }
 
-- (void)parser:(WEBBCodeParser *)parser didFindStartTag:(NSString *)tag withAttributes:(WEBBCodeAttributes *)attributes {
-    [_output appendFormat:@"<%@", tag];
+- (void)parser:(WEBBCodeParser *)parser didFindEndTag:(NSString *)tag {
+    [_output appendFormat:@"</%@>", tag];
+}
 
-    for (WEBBCodeAttribute* attribute in attributes.attributes) {
+- (void)parser:(WEBBCodeParser *)parser didFindText:(NSString *)text {
+    [_output appendString:text];
+}
+
+- (void)parser:(WEBBCodeParser *)parser didFindStartTag:(WEBBCodeTag *)tag {
+    [_output appendFormat:@"<%@", tag.tagName];
+
+    for (WEBBCodeAttribute* attribute in tag.attributes.attributes) {
         NSString *attributeKey = attribute.name;
         NSString *attributeValue = attribute.value;
         attributeValue = [attributeValue stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
@@ -87,12 +96,8 @@
     [_output appendString:@">"];
 }
 
-- (void)parser:(WEBBCodeParser *)parser didFindEndTag:(NSString *)tag {
-    [_output appendFormat:@"</%@>", tag];
-}
-
-- (void)parser:(WEBBCodeParser *)parser didFindText:(NSString *)text {
-    [_output appendString:text];
+- (void)parserDidFindLineBreak:(WEBBCodeParser *)parser {
+    [_output appendString:@"\n"];
 }
 
 @end

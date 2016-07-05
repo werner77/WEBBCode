@@ -88,7 +88,7 @@ static NSString * const kHtmlParagraphTag = @"p";
 
 - (BOOL)startParagraphIfNeeded {
     BOOL ret = NO;
-    if ([self currentHtmlTag] == nil && !_paragraphActive) {
+    if (self.useParagraphs && [self currentHtmlTag] == nil && !_paragraphActive) {
         WEBBCodeTag *paragraphTag = [WEBBCodeTag tagWithTagName:kHtmlParagraphTag attributes:nil];
         [self pushHtmlTags:@[paragraphTag] forBBCodeTag:nil];
         _paragraphActive = YES;

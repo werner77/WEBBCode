@@ -210,8 +210,8 @@ static const unichar kDefaultEscapeChar = '\\';
     return status;
 }
 
-- (WEBBCodeParserStatus)parseBytes:(void*)bytes withLength:(NSUInteger)bytesLength error:(NSError **)error {
-    NSString *bytesAsString = [[NSString alloc] initWithBytesNoCopy:bytes length:bytesLength encoding:self.encoding freeWhenDone:NO];
+- (WEBBCodeParserStatus)parseBytes:(const void*)bytes withLength:(NSUInteger)bytesLength error:(NSError **)error {
+    NSString *bytesAsString = [[NSString alloc] initWithBytesNoCopy:(void *)bytes length:bytesLength encoding:self.encoding freeWhenDone:NO];
     return [self parseString:bytesAsString error:error];
 }
 
