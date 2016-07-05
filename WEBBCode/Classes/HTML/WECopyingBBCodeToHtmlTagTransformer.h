@@ -3,7 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WEBBCodeToHtmlTagTransformer.h"
+#import <WEBBCode/WEBBCodeToHtmlTagTransformer.h>
 
 /**
  * Copies the WEBBCodeToHtmlTagTransformer implementation which just copies the BBTags as is.

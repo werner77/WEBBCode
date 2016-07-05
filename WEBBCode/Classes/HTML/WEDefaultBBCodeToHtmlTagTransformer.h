@@ -3,7 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WEBBCodeToHtmlTagTransformer.h"
+#import <WEBBCode/WEBBCodeToHtmlTagTransformer.h>
 
 /**
  * Default BBCode to HTML transformer which implements the tags as specified by:

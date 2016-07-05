@@ -3,7 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WEBBCodeParser.h"
+#import <WEBBCode/WEBBCodeParser.h>
 
 @protocol WEBBCodeToHtmlTagTransformer;
 

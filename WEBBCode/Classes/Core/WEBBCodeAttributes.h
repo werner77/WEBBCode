@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WEBBCodeAttribute.h"
+#import <WEBBCode/WEBBCodeAttribute.h>
 
 /**
  * Class which acts as a container for multiple WEBBCodeAttribute instances as contained in a tag.
