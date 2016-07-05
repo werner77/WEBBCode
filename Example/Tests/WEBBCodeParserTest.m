@@ -6,8 +6,9 @@
 #import <XCTest/XCTest.h>
 #import <WEBBCode/WEBBCodeParser.h>
 #import <WEBBCode/WEBBCodeTag.h>
+#import "WEBBCodeTest.h"
 
-@interface WEBBCodeParserTest : XCTestCase<WEBBCodeParserDelegate>
+@interface WEBBCodeParserTest : WEBBCodeTest<WEBBCodeParserDelegate>
 
 @end
 

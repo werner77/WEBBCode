@@ -27,5 +27,12 @@
     return NO;
 }
 
+- (BOOL)shouldBufferContentForTag:(NSString *)tag {
+    return NO;
+}
+
+- (BOOL)shouldIgnoreLineBreakAfterTag:(NSString *)tag {
+    return NO;
+}
 
 @end

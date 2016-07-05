@@ -25,6 +25,17 @@
     }];
 }
 
++ (instancetype)descriptorByTranslatingTagNameToTagNames:(NSArray<NSString *>*)tagNames {
+    return [self descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
+        NSMutableArray *ret = [NSMutableArray new];
+        for (NSString *tn in tagNames) {
+            WEBBCodeTag *newTag = [[WEBBCodeTag alloc] initWithTagName:tn attributes:nil];
+            [ret addObject:newTag];
+        }
+        return ret;
+    }];
+}
+
 + (instancetype)descriptorByTranslatingTagNameTo:(NSString *)htmlTagName withDefaultAttributeName:(NSString *)defaultAttributeName {
     return [self descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
         WEBBCodeTag *ret = [tag copy];
@@ -76,6 +87,16 @@
 
 - (instancetype)withCloseTagOnLineBreak:(BOOL)closeTagOnLineBreak {
     self.closeTagOnLineBreak = closeTagOnLineBreak;
+    return self;
+}
+
+- (instancetype)withIgnoreLineBreakAfterTag:(BOOL)ignore {
+    self.ignoreLineBreakAfterTag = ignore;
+    return self;
+}
+
+- (instancetype)withBufferTagContent:(BOOL)bufferTagContent {
+    self.bufferTagContent = bufferTagContent;
     return self;
 }
 

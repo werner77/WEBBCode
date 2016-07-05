@@ -8,20 +8,13 @@
 #import <WEBBCode/WEBBCodeToHtmlConverter.h>
 #import <WEBBCode/WECopyingBBCodeToHtmlTagTransformer.h>
 #import <WEBBCode/WEDefaultBBCodeToHtmlTagTransformer.h>
+#import "WEBBCodeTest.h"
 
-@interface WEBBCodeToHtmlConverterTest : XCTestCase
+@interface WEBBCodeToHtmlConverterTest : WEBBCodeTest
 @end
 
 @implementation WEBBCodeToHtmlConverterTest {
 
-}
-
-- (NSString *)readFromFile:(NSString *)fileName {
-    NSString *inputFilePath= [[NSBundle bundleForClass:self.class] pathForResource:fileName ofType:@"txt"];
-    XCTAssertNotNil(inputFilePath, @"Expected file to exist");
-    NSString *input = [[NSString alloc] initWithContentsOfFile:inputFilePath encoding:NSUTF8StringEncoding error:NULL];
-    XCTAssertNotNil(input, @"Expected file to be readable");
-    return input;
 }
 
 - (void)testConvertHtml {
@@ -30,11 +23,15 @@
     converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
     converter.useParagraphs = NO;
 
-    NSString *input = [self readFromFile:@"bbcode-input1"];
+    NSString *input = [self readFromFile:@"bbcode-input2"];
 
     NSString *output = [converter htmlFromBBCode:input error:nil];
 
-    NSLog(@"output: %@", output);
+    NSString *expectedOutput = [self readFromFile:@"bbcode-output2"];
+
+    NSLog(@"output:\n%@", output);
+
+    XCTAssertEqualObjects(expectedOutput, output, @"Expected output to be correct");
 
 }
 

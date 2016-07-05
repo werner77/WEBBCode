@@ -21,4 +21,18 @@
  */
 - (BOOL)shouldCloseTagForLineBreak:(NSString *)tag;
 
+/**
+ * Whether a linebreak encountered directly after the tag should be ignored.
+ *
+ * This could be true if the tag inherently results in a linebreak, e.g. for the [li] tag
+ */
+- (BOOL)shouldIgnoreLineBreakAfterTag:(NSString *)tag;
+
+/**
+ * If true, the text content of the tag will not be output but stored in the WEBBCodeTag.content property.
+ *
+ * This could be true for example for the [img]http://somedomain.com[/img] tag where the content represents an url and should be output as an attribute.
+ */
+- (BOOL)shouldBufferContentForTag:(NSString *)tag;
+
 @end

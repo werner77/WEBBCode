@@ -22,8 +22,15 @@
                     @"u" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"ins"],
                     @"s" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"del"],
                     @"url" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"a" withDefaultAttributeName:@"href"],
-                    @"img" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
+                    @"img" : [[WEBBCodeToHtmlTagsTransformationDescriptor descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
                         NSMutableArray *attributes = [NSMutableArray new];
+
+                        NSString *url = tag.content;
+                        if (url.length > 0) {
+                            WEBBCodeAttribute *sourceAttribute = [WEBBCodeAttribute attributeWithName:@"source" value:url];
+                            [attributes addObject:sourceAttribute];
+                        }
+
                         for (WEBBCodeAttribute *sourceAttribute in tag.attributes.attributes) {
                             if (sourceAttribute.isDefault) {
                                 //Format: widthxheight
@@ -39,8 +46,8 @@
                             }
                         }
                         return @[[WEBBCodeTag tagWithTagName:@"img" attributes:[WEBBCodeAttributes attributesWithAttributesArray:attributes]]];
-                    }],
-                    @"quote" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"blockquote"],
+                    }] withBufferTagContent:YES],
+                    @"quote" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameToTagNames:@[@"blockquote", @"p"]],
                     @"code" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"pre"],
                     @"style" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
                         NSDictionary *styleDict = @{@"size" : @"font-size", @"color" : @"color"};
@@ -84,7 +91,8 @@
                     @"list" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"ul"],
                     @"ul" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"ol" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
-                    @"*" : [[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"li"] withCloseTagOnLineBreak:YES],
+                    @"li" : [[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes] withIgnoreLineBreakAfterTag:YES],
+                    @"*" : [[[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"li"] withCloseTagOnLineBreak:YES] withIgnoreLineBreakAfterTag:YES],
                     @"table" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"tr" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"th" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
@@ -121,8 +129,27 @@
     return ret;
 }
 
+- (BOOL)shouldIgnoreLineBreakAfterTag:(NSString *)tag {
+    BOOL ret = NO;
+    WEBBCodeToHtmlTagsTransformationDescriptor *descriptor = [self transformationDescriptorForTag:tag];
+
+    if (descriptor) {
+        ret = descriptor.ignoreLineBreakAfterTag;
+    }
+    return ret;
+}
+
 - (WEBBCodeToHtmlTagsTransformationDescriptor *)transformationDescriptorForTag:(NSString *)tagName {
     return [self.class tagTransformationDictionary][tagName];
+}
+
+- (BOOL)shouldBufferContentForTag:(NSString *)tag {
+    BOOL ret = NO;
+    WEBBCodeToHtmlTagsTransformationDescriptor *descriptor = [self transformationDescriptorForTag:tag];
+    if (descriptor) {
+        ret = descriptor.bufferTagContent;
+    }
+    return ret;
 }
 
 @end

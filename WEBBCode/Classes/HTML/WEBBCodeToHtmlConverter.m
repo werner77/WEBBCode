@@ -5,16 +5,35 @@
 #import "WEBBCodeToHtmlConverter.h"
 #import "WEBBCodeToHtmlTagTransformer.h"
 #import "WEBBCodeTag.h"
+#import "WEBBCodeCommonDefinitions.h"
 
 @interface WEBBCodeTagStackItem : NSObject
 
 @property (nonatomic, strong) NSArray<NSString *> *htmlTags;
-@property (nonatomic, strong) NSString *bbCodeTag;
+@property (nonatomic, strong) WEBBCodeTag *bbCodeTag;
+
+- (void)appendContents:(NSString * )s;
+- (NSString *)contents;
 
 @end
 
 
-@implementation WEBBCodeTagStackItem
+@implementation WEBBCodeTagStackItem {
+    NSMutableString *_contents;
+}
+
+- (void)appendContents:(NSString * )s {
+    if (s.length > 0) {
+        if (_contents == nil) {
+            _contents = [NSMutableString new];
+        }
+        [_contents appendString:s];
+    }
+}
+
+- (NSString *)contents {
+    return _contents;
+}
 
 @end
 
@@ -22,9 +41,20 @@
     NSMutableString *_output;
     BOOL _paragraphActive;
     NSMutableArray *_tagStack;
+    WEBBCodeTag *_bufferedTag;
+    WEBBCodeTag *_lastClosedTag;
+    BOOL _foundTextAfterTagClosure;
 }
 
 static NSString * const kHtmlParagraphTag = @"p";
+
++ (NSCharacterSet *)whitespaceCharacterSet {
+    static NSCharacterSet *set = nil;
+    WE_DISPATCH_ONCE((^{
+        set = [NSCharacterSet whitespaceCharacterSet];
+    }));
+    return set;
+}
 
 - (instancetype)init {
     if ((self = [super init])) {
@@ -32,8 +62,18 @@ static NSString * const kHtmlParagraphTag = @"p";
     return self;
 }
 
+- (void)reset {
+    _output = nil;
+    _paragraphActive = NO;
+    [_tagStack removeAllObjects];
+    _bufferedTag = nil;
+    _lastClosedTag = nil;
+    _foundTextAfterTagClosure = NO;
+}
+
 - (NSString *)htmlFromBBCode:(NSString *)bbCode error:(NSError **)error {
     WEBBCodeParser *parser = [WEBBCodeParser new];
+    [self reset];
     parser.delegate = self;
     _paragraphActive = NO;
     _output = [NSMutableString new];
@@ -49,24 +89,61 @@ static NSString * const kHtmlParagraphTag = @"p";
 #pragma mark - WEBBCodeParserDelegate
 
 - (void)parser:(WEBBCodeParser *)parser didFindStartTag:(WEBBCodeTag *)bbCodeTag {
-    NSArray<WEBBCodeTag *> *htmlTags = [self htmlTagsForTag:bbCodeTag];
-    [self pushHtmlTags:htmlTags forBBCodeTag:bbCodeTag.tagName];
+    _foundTextAfterTagClosure = YES;
+    NSArray<WEBBCodeTag *> *htmlTags = nil;
+    if ([self shouldOutputTextForTag:bbCodeTag.tagName]) {
+        if (_bufferedTag == nil) {
+            htmlTags = [self htmlTagsForTag:bbCodeTag];
+        }
+    } else if (_bufferedTag == nil) {
+        //Delay the push: buffer the tag contents until the closing tag occurs
+        _bufferedTag = bbCodeTag;
+    }
+    [self pushHtmlTags:htmlTags forBBCodeTag:bbCodeTag];
 }
 
 - (void)parser:(WEBBCodeParser *)parser didFindEndTag:(NSString *)tag {
-    [self popTagsUpToAndIncluding:tag];
+    WEBBCodeTagStackItem *stackItem = [self popTagsUpToAndIncluding:tag];
+    if (_bufferedTag == stackItem.bbCodeTag && _bufferedTag != nil) {
+        _bufferedTag.content = stackItem.contents;
+
+        NSArray<WEBBCodeTag *> *htmlTags = [self htmlTagsForTag:_bufferedTag];
+        [self pushHtmlTags:htmlTags forBBCodeTag:_bufferedTag];
+        [self popTagsUpToAndIncluding:tag];
+
+        _bufferedTag = nil;
+    }
 }
 
 - (void)parser:(WEBBCodeParser *)parser didFindText:(NSString *)text {
-    [self startParagraphIfNeeded];
-    [_output appendString:text];
+    if (_bufferedTag == nil) {
+        if ([self startParagraphIfNeeded]) {
+            _foundTextAfterTagClosure = YES;
+        }
+        [_output appendString:text];
+        if (!_foundTextAfterTagClosure && [text stringByTrimmingCharactersInSet:[[self class] whitespaceCharacterSet]].length > 0) {
+            _foundTextAfterTagClosure = YES;
+        }
+    } else {
+        WEBBCodeTagStackItem *topStackItem = [_tagStack lastObject];
+        [topStackItem appendContents:text];
+    }
 }
 
 - (void)parserDidFindLineBreak:(WEBBCodeParser *)parser {
-    if ([self shouldCloseTagForLineBreak:[self currentBBCodeTag]]) {
-        [self popTag];
-    } else if (![self endParagraphIfPossible]) {
-        [_output appendString:@"<br />\n"];
+    if (_bufferedTag == nil) {
+        NSString *tag = [self currentBBCodeTag].tagName;
+        BOOL canoutputLineBreak = YES;
+        if ([self shouldCloseTagForLineBreak:tag]) {
+            [self popTag];
+            _foundTextAfterTagClosure = NO;
+        } else if ([self endParagraphIfPossible]) {
+            canoutputLineBreak = NO;
+        }
+        if (canoutputLineBreak && (_foundTextAfterTagClosure || ![self shouldIgnoreLineBreakAfterTag:_lastClosedTag.tagName])) {
+            [_output appendString:@"<br />"];
+        }
+        [_output appendString:@"\n"];
     }
 }
 
@@ -78,6 +155,10 @@ static NSString * const kHtmlParagraphTag = @"p";
 
 - (BOOL)shouldCloseTagForLineBreak:(NSString *)tag {
     return [self.transformer shouldCloseTagForLineBreak:tag];
+}
+
+- (BOOL)shouldIgnoreLineBreakAfterTag:(NSString *)tag {
+    return [self.transformer shouldIgnoreLineBreakAfterTag:tag];
 }
 
 #pragma mark - Private
@@ -107,17 +188,21 @@ static NSString * const kHtmlParagraphTag = @"p";
     return ret;
 }
 
+- (BOOL)shouldOutputTextForTag:(NSString *)tagName {
+    return ![self.transformer shouldBufferContentForTag:tagName];
+}
+
 - (NSString *)currentHtmlTag {
     WEBBCodeTagStackItem *tag = [_tagStack lastObject];
     return tag.htmlTags.lastObject;
 }
 
-- (NSString *)currentBBCodeTag {
+- (WEBBCodeTag *)currentBBCodeTag {
     WEBBCodeTagStackItem *tag = [_tagStack lastObject];
     return tag.bbCodeTag;
 }
 
-- (void)pushHtmlTags:(NSArray<WEBBCodeTag *> *)htmlTags forBBCodeTag:(NSString *)bbCodeTag {
+- (void)pushHtmlTags:(NSArray<WEBBCodeTag *> *)htmlTags forBBCodeTag:(WEBBCodeTag *)bbCodeTag {
 
     NSMutableArray *htmlTagNames = [NSMutableArray new];
     for (WEBBCodeTag *htmlTag in htmlTags) {
@@ -151,16 +236,20 @@ static NSString * const kHtmlParagraphTag = @"p";
             [_output appendFormat:@"</%@>", htmlTagName];
         }
     }
+
+    _lastClosedTag = ret.bbCodeTag;
+    _foundTextAfterTagClosure = NO;
+
     return ret;
 }
 
 - (WEBBCodeTagStackItem *)popTagsUpToAndIncluding:(NSString *)bbTagName {
     WEBBCodeTagStackItem *ret = nil;
     if ([self stackContainsBBCodeTag:bbTagName]) {
-        while (![bbTagName isEqual:self.currentBBCodeTag]) {
+        while (![bbTagName isEqual:self.currentBBCodeTag.tagName]) {
             [self popTag];
         }
-        if ([bbTagName isEqual:self.currentBBCodeTag]) {
+        if ([bbTagName isEqual:self.currentBBCodeTag.tagName]) {
             ret = [self popTag];
         }
     }
@@ -177,7 +266,7 @@ static NSString * const kHtmlParagraphTag = @"p";
     if (_tagStack.count > 0) {
         for (NSInteger i = _tagStack.count - 1; i >= 0; i--) {
             WEBBCodeTagStackItem *item = _tagStack[(NSUInteger)i];
-            if ([item.bbCodeTag isEqual:bbCodeTag]) {
+            if ([item.bbCodeTag.tagName isEqual:bbCodeTag]) {
                 return YES;
             }
         }

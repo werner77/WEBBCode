@@ -10,6 +10,7 @@
 
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, strong) WEBBCodeAttributes *attributes;
+@property (nonatomic, strong) NSString *content;
 
 - (instancetype)initWithTagName:(NSString *)tagName attributes:(WEBBCodeAttributes *)attributes;
 + (instancetype)tagWithTagName:(NSString *)tagName attributes:(WEBBCodeAttributes *)attributes;

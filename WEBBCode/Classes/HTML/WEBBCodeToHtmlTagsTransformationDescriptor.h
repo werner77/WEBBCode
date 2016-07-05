@@ -13,10 +13,14 @@ typedef NSArray<WEBBCodeTag *>* (^WEBBCodeTagToHtmlTagsTransformationBlock)(WEBB
 
 @property (nonatomic, copy) WEBBCodeTagToHtmlTagsTransformationBlock transformationBlock;
 @property (nonatomic, assign) BOOL closeTagOnLineBreak;
+@property (nonatomic, assign) BOOL bufferTagContent;
+@property (nonatomic, assign) BOOL ignoreLineBreakAfterTag;
 
 + (instancetype)descriptorByCopyingTagsAndAttributes;
 
 + (instancetype)descriptorByTranslatingTagNameTo:(NSString *)htmlTagName;
+
++ (instancetype)descriptorByTranslatingTagNameToTagNames:(NSArray<NSString *>*)tagNames;
 
 + (instancetype)descriptorByTranslatingTagNameTo:(NSString *)htmlTagName withDefaultAttributeName:(NSString *)defaultAttributeName;
 
@@ -25,6 +29,10 @@ typedef NSArray<WEBBCodeTag *>* (^WEBBCodeTagToHtmlTagsTransformationBlock)(WEBB
 + (instancetype)descriptorWithTransformationBlock:(WEBBCodeTagToHtmlTagsTransformationBlock)transformationBlock;
 
 - (instancetype)withCloseTagOnLineBreak:(BOOL)closeTagOnLineBreak;
+
+- (instancetype)withBufferTagContent:(BOOL)bufferTagContent;
+
+- (instancetype)withIgnoreLineBreakAfterTag:(BOOL)ignore;
 
 - (NSArray<WEBBCodeTag *>*)htmlTagsForTag:(WEBBCodeTag *)tag;
 
