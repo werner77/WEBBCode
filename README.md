@@ -11,9 +11,46 @@ It has support for output to HTML and NSAttributedString (work in progress) for 
 
 It is totally pluggable and extensible to allow for full customization.
 
+The pod has two sub specs:
+
+Core: which contains the BBCode parser and model classes.
+HTML: which contains support for transformation to HTML.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+Example usage to parse:
+
+[code]
+
+WEBBCodeParser *parser = [WEBBCodeParser new];
+parser.encoding = NSUTF8StringEncoding;
+parser.delegate = self;
+
+NSData *data = [NSData dataWithContentsOfFile:@"somefile"];
+[parser parseData:data error:nil];
+
+[/code]
+
+Example to convert BBCode to HTML:
+
+[code]
+
+WEBBCodeToHtmlConverter *converter = [WEBBCodeToHtmlConverter new];
+converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
+converter.useParagraphs = NO;
+
+NSString *input = @"some [b]bb code[/b]"";
+NSError *error = nil;
+NSString *output = [converter htmlFromBBCode:input error:&error];
+
+if (output == nil) {
+    NSLog(@"Error occurred: %@", error);
+}
+
+[/code]
+
 
 ## Requirements
 

@@ -17,7 +17,7 @@
     }];
 }
 
-+ (instancetype)descriptorByTranslatingTagNameTo:(NSString *)htmlTagName {
++ (instancetype)descriptorByCopyingAttributesAndTranslatingTagNameTo:(NSString *)htmlTagName {
     return [self descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
         WEBBCodeTag *ret = [tag copy];
         ret.tagName = htmlTagName;
@@ -36,7 +36,7 @@
     }];
 }
 
-+ (instancetype)descriptorByTranslatingTagNameTo:(NSString *)htmlTagName withDefaultAttributeName:(NSString *)defaultAttributeName {
++ (instancetype)descriptorByCopyingAttributesAndTranslatingTagNameTo:(NSString *)htmlTagName withDefaultAttributeName:(NSString *)defaultAttributeName {
     return [self descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
         WEBBCodeTag *ret = [tag copy];
         ret.tagName = htmlTagName;

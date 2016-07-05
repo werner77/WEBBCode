@@ -32,6 +32,7 @@
 
 - (void)parseInput:(NSString *)input withExpectedOutput:(NSString *)output {
     WEBBCodeParser *parser = [WEBBCodeParser new];
+
     parser.delegate = self;
 
     NSUInteger batchSize = 10;

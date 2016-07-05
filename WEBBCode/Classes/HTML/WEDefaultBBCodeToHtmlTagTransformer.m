@@ -17,11 +17,11 @@
     static NSDictionary *ret = nil;
     WE_DISPATCH_ONCE((^{
             ret = @{
-                    @"b" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"strong"],
-                    @"i" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"em"],
-                    @"u" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"ins"],
-                    @"s" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"del"],
-                    @"url" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"a" withDefaultAttributeName:@"href"],
+                    @"b" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"strong"],
+                    @"i" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"em"],
+                    @"u" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"ins"],
+                    @"s" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"del"],
+                    @"url" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"a" withDefaultAttributeName:@"href"],
                     @"img" : [[WEBBCodeToHtmlTagsTransformationDescriptor descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
                         NSMutableArray *attributes = [NSMutableArray new];
 
@@ -48,7 +48,7 @@
                         return @[[WEBBCodeTag tagWithTagName:@"img" attributes:[WEBBCodeAttributes attributesWithAttributesArray:attributes]]];
                     }] withBufferTagContent:YES],
                     @"quote" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameToTagNames:@[@"blockquote", @"p"]],
-                    @"code" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"pre"],
+                    @"code" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"pre"],
                     @"style" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorWithTransformationBlock:^NSArray *(WEBBCodeTag *tag) {
                         NSDictionary *styleDict = @{@"size" : @"font-size", @"color" : @"color"};
                         NSMutableArray *attributes = [NSMutableArray new];
@@ -88,11 +88,11 @@
                         }
                         return @[[WEBBCodeTag tagWithTagName:@"span" attributes:[WEBBCodeAttributes attributesWithAttributesArray:attributes]]];
                     }],
-                    @"list" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"ul"],
+                    @"list" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"ul"],
                     @"ul" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"ol" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"li" : [[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes] withIgnoreLineBreakAfterTag:YES],
-                    @"*" : [[[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByTranslatingTagNameTo:@"li"] withCloseTagOnLineBreak:YES] withIgnoreLineBreakAfterTag:YES],
+                    @"*" : [[[WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingAttributesAndTranslatingTagNameTo:@"li"] withCloseTagOnLineBreak:YES] withIgnoreLineBreakAfterTag:YES],
                     @"table" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"tr" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
                     @"th" : [WEBBCodeToHtmlTagsTransformationDescriptor descriptorByCopyingTagsAndAttributes],
