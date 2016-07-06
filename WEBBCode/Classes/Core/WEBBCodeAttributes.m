@@ -6,7 +6,7 @@
 //
 //
 
-#import <WEBBCode/WEBBCodeAttributes.h>
+#import "WEBBCodeAttributes.h"
 
 @implementation WEBBCodeAttributes {
     NSMutableDictionary *_lookupDictionary;

@@ -6,10 +6,9 @@
 //  Copyright (c) 2016 Werner IT Consultancy. All rights reserved.
 //
 
-#import <WEBBCode/WEBBCodeParser.h>
-#import <WEBBCode/WEBBCodeAttributes.h>
-#import <WEBBCode/WEBBCodeCommonDefinitions.h>
-#import <WEBBCode/WEBBCodeTag.h>
+#import "WEBBCodeParser.h"
+#import "WEBBCodeCommonDefinitions.h"
+#import "WEBBCodeTag.h"
 
 typedef NS_OPTIONS(NSUInteger, BBCodeStatus) {
     BBCodeStatusNone = 0,

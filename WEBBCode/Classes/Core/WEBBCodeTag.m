@@ -2,9 +2,8 @@
 // Created by Werner Altewischer on 04/07/16.
 //
 
-#import <WEBBCode/WEBBCodeTag.h>
-#import <WEBBCode/WEBBCodeAttributes.h>
-
+#import "WEBBCodeTag.h"
+#import "WEBBCodeAttributes.h"
 
 @implementation WEBBCodeTag {
 

@@ -24,8 +24,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/werner77/WEBBCode'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Werner Altewischer' => 'werner.altewischer@gmail.com' }
-  #s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :tag => s.version.to_s }
-  s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :commit => '412995bb9e569acabccf82ad181fa2e3ffb96570' }
+  s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '6.0'
 
@@ -37,6 +36,7 @@ Pod::Spec.new do |s|
   s.subspec 'HTML' do |s_html|
       s_html.source_files = 'WEBBCode/Classes/HTML/**/*'
       s_html.public_header_files = 'WEBBCode/Classes/HTML/**/*.h'
+      s_html.dependency 'WEBBCode/Core'
   end
 
 end
