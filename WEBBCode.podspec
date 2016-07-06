@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Werner Altewischer' => 'werner.altewischer@gmail.com' }
   s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :tag => s.version.to_s }
+  #s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :commit => '61150a289677994b493920c952b9d9042c419e25' }
 
   s.ios.deployment_target = '6.0'
 
