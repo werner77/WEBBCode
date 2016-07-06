@@ -5,9 +5,9 @@
 
 #import <XCTest/XCTest.h>
 #import <WEBBCode/WEBBCodeParser.h>
-#import <WEBBCode/WEBBCodeToHtmlConverter.h>
-#import <WEBBCode/WECopyingBBCodeToHtmlTagTransformer.h>
-#import <WEBBCode/WEDefaultBBCodeToHtmlTagTransformer.h>
+#import <WEBBCode/WEBBCodeHtmlConverter.h>
+#import <WEBBCode/WEBBCodeHtmlCopyTagTransformer.h>
+#import <WEBBCode/WEBBCodeHtmlDefaultTagTransformer.h>
 #import "WEBBCodeTest.h"
 
 @interface WEBBCodeToHtmlConverterTest : WEBBCodeTest
@@ -19,8 +19,8 @@
 
 - (void)testConvertHtml {
 
-    WEBBCodeToHtmlConverter *converter = [WEBBCodeToHtmlConverter new];
-    converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
+    WEBBCodeHtmlConverter *converter = [WEBBCodeHtmlConverter new];
+    converter.transformer = [WEBBCodeHtmlDefaultTagTransformer new];
     converter.useParagraphs = NO;
 
     NSString *input = [self readFromFile:@"bbcode-input2"];

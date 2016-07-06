@@ -50,6 +50,14 @@ static const unichar kDefaultEscapeChar = '\\';
     return lineBreakSet;
 }
 
++ (NSCharacterSet *)ignoreSet{
+    static NSCharacterSet *ignoreSet = nil;
+    WE_DISPATCH_ONCE(^{
+        ignoreSet = [NSCharacterSet characterSetWithCharactersInString:@"\r\f"];
+    });
+    return ignoreSet;
+}
+
 - (instancetype)init {
     if ((self = [super init])) {
         self.escapeChar = kDefaultEscapeChar;
@@ -101,7 +109,9 @@ static const unichar kDefaultEscapeChar = '\\';
         BOOL inAttributeKey = WE_CONTAINS_BIT(_status, BBCodeStatusInAttributeKey);
         BOOL inAttributeValue = WE_CONTAINS_BIT(_status, BBCodeStatusInAttributeValue);
 
-        if (escaped) {
+        if ([[[self class] ignoreSet] characterIsMember:b]) {
+            ignoreChar = YES;
+        } else if (escaped) {
             BOOL isEscapableChar = (b == '[' || b == ']' || b == escapeChar || b == _currentQuoteChar);
             if (!isEscapableChar) {
                 //Print escape char anyway, which was ignored the previous turn

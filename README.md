@@ -37,8 +37,8 @@ Example to convert BBCode to HTML:
 
 ```objc
 
-WEBBCodeToHtmlConverter *converter = [WEBBCodeToHtmlConverter new];
-converter.transformer = [WEDefaultBBCodeToHtmlTagTransformer new];
+WEBBCodeHtmlConverter *converter = [WEBBCodeHtmlConverter new];
+converter.transformer = [WEBBCodeHtmlDefaultTagTransformer new];
 converter.useParagraphs = NO;
 
 NSString *input = @"some [b]bb code[/b]"";

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WEBBCode'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'A fast SAX style parser for BBCode in Objective C with support for various transformations'
 
   s.description      = <<-DESC
