@@ -1,6 +1,6 @@
 # WEBBCode
 
-[![CI Status](http://img.shields.io/travis/Werner Altewischer/WEBBCode.svg?style=flat)](https://travis-ci.org/Werner Altewischer/WEBBCode)
+[![CI Status](http://img.shields.io/travis/werner77/WEBBCode.svg?style=flat)](https://travis-ci.org/werner77/WEBBCode)
 [![Version](https://img.shields.io/cocoapods/v/WEBBCode.svg?style=flat)](http://cocoapods.org/pods/WEBBCode)
 [![License](https://img.shields.io/cocoapods/l/WEBBCode.svg?style=flat)](http://cocoapods.org/pods/WEBBCode)
 [![Platform](https://img.shields.io/cocoapods/p/WEBBCode.svg?style=flat)](http://cocoapods.org/pods/WEBBCode)
@@ -66,7 +66,7 @@ pod "WEBBCode"
 
 ## Author
 
-Werner Altewischer, werner.altewischer@gmail.com
+Werner Altewischer, werner@werner-it.com
 
 ## License
 
