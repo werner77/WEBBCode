@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://github.com/werner77/WEBBCode'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Werner Altewischer' => 'werner@werner-it.com' }
+  s.author           = 'Werner Altewischer'
   s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :tag => s.version.to_s }
   #s.source           = { :git => 'https://github.com/werner77/WEBBCode.git', :commit => '61150a289677994b493920c952b9d9042c419e25' }
 

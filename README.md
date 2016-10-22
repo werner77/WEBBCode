@@ -66,7 +66,7 @@ pod "WEBBCode"
 
 ## Author
 
-Werner Altewischer, werner@werner-it.com
+Werner Altewischer
 
 ## License
 
